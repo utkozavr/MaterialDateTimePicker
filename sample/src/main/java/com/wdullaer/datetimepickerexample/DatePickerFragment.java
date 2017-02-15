@@ -3,6 +3,7 @@ package com.wdullaer.datetimepickerexample;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,8 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
                         DatePickerFragment.this,
                         now.get(Calendar.YEAR),
                         now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
+                        now.get(Calendar.DAY_OF_MONTH),
+                        "15:21"
                 );
                 dpd.setThemeDark(modeDarkDate.isChecked());
                 dpd.vibrate(vibrateDate.isChecked());
@@ -108,7 +110,8 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, boolean isTimeSet) {
+        Log.d("isTimeSet", (isTimeSet)?"1":"0");
         String date = "You picked the following date: "+dayOfMonth+"/"+(++monthOfYear)+"/"+year;
         dateTextView.setText(date);
     }

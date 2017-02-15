@@ -63,7 +63,8 @@ public class TimePickerFragment extends Fragment implements TimePickerDialog.OnT
                         TimePickerFragment.this,
                         now.get(Calendar.HOUR_OF_DAY),
                         now.get(Calendar.MINUTE),
-                        mode24Hours.isChecked()
+                        mode24Hours.isChecked(),
+                        "12 Vay 1978"
                 );
                 tpd.setThemeDark(modeDarkTime.isChecked());
                 tpd.vibrate(vibrateTime.isChecked());
@@ -100,7 +101,8 @@ public class TimePickerFragment extends Fragment implements TimePickerDialog.OnT
     }
 
     @Override
-    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second, boolean isDateSet) {
+        Log.d("isDateSet", (isDateSet)?"1":"0");
         String hourString = hourOfDay < 10 ? "0"+hourOfDay : ""+hourOfDay;
         String minuteString = minute < 10 ? "0"+minute : ""+minute;
         String secondString = second < 10 ? "0"+second : ""+second;

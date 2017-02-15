@@ -93,6 +93,8 @@ public class TimePickerDialog extends DialogFragment implements
     private static final String KEY_CANCEL_STRING = "cancel_string";
     private static final String KEY_CANCEL_COLOR = "cancel_color";
     private static final String KEY_VERSION = "version";
+    private static final String KEY_DATE = "date";
+    private static final String KEY_IS_DATE_SET = "is_date_set";
 
     public static final int HOUR_INDEX = 0;
     public static final int MINUTE_INDEX = 1;
@@ -167,6 +169,11 @@ public class TimePickerDialog extends DialogFragment implements
     private String mSecondPickerDescription;
     private String mSelectSeconds;
 
+
+    private String mDate;
+    private TextView mDateViwe;
+    private boolean isDateSet;
+
     /**
      * The callback interface used to indicate the user is done filling in
      * the time (they clicked on the 'Set' button).
@@ -179,7 +186,7 @@ public class TimePickerDialog extends DialogFragment implements
          * @param minute The minute that was set.
          * @param second The second that was set
          */
-        void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second);
+        void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second, boolean setDate);
     }
 
     public TimePickerDialog() {
@@ -187,21 +194,22 @@ public class TimePickerDialog extends DialogFragment implements
     }
 
     public static TimePickerDialog newInstance(OnTimeSetListener callback,
-            int hourOfDay, int minute, int second, boolean is24HourMode) {
+            int hourOfDay, int minute, int second, boolean is24HourMode, String date) {
         TimePickerDialog ret = new TimePickerDialog();
-        ret.initialize(callback, hourOfDay, minute, second, is24HourMode);
+        ret.initialize(callback, hourOfDay, minute, second, is24HourMode, date);
         return ret;
     }
 
     public static TimePickerDialog newInstance(OnTimeSetListener callback,
-            int hourOfDay, int minute, boolean is24HourMode) {
-        return TimePickerDialog.newInstance(callback, hourOfDay, minute, 0, is24HourMode);
+            int hourOfDay, int minute, boolean is24HourMode, String date) {
+        return TimePickerDialog.newInstance(callback, hourOfDay, minute, 0, is24HourMode, date);
     }
 
     public void initialize(OnTimeSetListener callback,
-            int hourOfDay, int minute, int second, boolean is24HourMode) {
+            int hourOfDay, int minute, int second, boolean is24HourMode, String date) {
         mCallback = callback;
 
+        mDate = date;
         mInitialTime = new Timepoint(hourOfDay, minute, second);
         mIs24HourMode = is24HourMode;
         mInKbMode = false;
@@ -523,6 +531,9 @@ public class TimePickerDialog extends DialogFragment implements
             mCancelString = savedInstanceState.getString(KEY_CANCEL_STRING);
             mCancelColor = savedInstanceState.getInt(KEY_CANCEL_COLOR);
             mVersion = (Version) savedInstanceState.getSerializable(KEY_VERSION);
+            mDate = savedInstanceState.getString(KEY_DATE);
+            isDateSet = savedInstanceState.getBoolean(KEY_IS_DATE_SET);
+
         }
     }
 
@@ -852,6 +863,15 @@ public class TimePickerDialog extends DialogFragment implements
             mTypedTimes = new ArrayList<>();
         }
 
+        mDateViwe = (TextView) view.findViewById(R.id.time_picker_date);
+        mDateViwe.setText(mDate);
+        mDateViwe.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exitToDateSet();
+            }
+        });
+
         // Set the title (if any)
         TextView timePickerHeader = (TextView) view.findViewById(R.id.time_picker_header);
         if (!mTitle.isEmpty()) {
@@ -863,6 +883,7 @@ public class TimePickerDialog extends DialogFragment implements
         timePickerHeader.setBackgroundColor(Utils.darkenColor(mAccentColor));
         view.findViewById(R.id.time_display_background).setBackgroundColor(mAccentColor);
         view.findViewById(R.id.time_display).setBackgroundColor(mAccentColor);
+        view.findViewById(R.id.time_picker_date).setBackgroundColor(mAccentColor);
 
         // Button text can have a different color
         if (mOkColor != -1) mOkButton.setTextColor(mOkColor);
@@ -986,6 +1007,8 @@ public class TimePickerDialog extends DialogFragment implements
             outState.putString(KEY_CANCEL_STRING, mCancelString);
             outState.putInt(KEY_CANCEL_COLOR, mCancelColor);
             outState.putSerializable(KEY_VERSION, mVersion);
+            outState.putString(KEY_DATE, mDate);
+            outState.putBoolean(KEY_IS_DATE_SET, isDateSet);
         }
     }
 
@@ -1259,7 +1282,7 @@ public class TimePickerDialog extends DialogFragment implements
             }
             if (mCallback != null) {
                 mCallback.onTimeSet(this,
-                        mTimePicker.getHours(), mTimePicker.getMinutes(), mTimePicker.getSeconds());
+                        mTimePicker.getHours(), mTimePicker.getMinutes(), mTimePicker.getSeconds(), isDateSet);
             }
             dismiss();
             return true;
@@ -1857,11 +1880,18 @@ public class TimePickerDialog extends DialogFragment implements
 
     public void notifyOnDateListener() {
         if (mCallback != null) {
-            mCallback.onTimeSet(this, mTimePicker.getHours(), mTimePicker.getMinutes(), mTimePicker.getSeconds());
+            mCallback.onTimeSet(this, mTimePicker.getHours(), mTimePicker.getMinutes(), mTimePicker.getSeconds(), isDateSet);
         }
     }
 
     public Timepoint getSelectedTime() {
         return mTimePicker.getTime();
+    }
+
+    private void exitToDateSet(){
+        tryVibrate();
+        isDateSet = true;
+        notifyOnDateListener();
+        dismiss();
     }
 }

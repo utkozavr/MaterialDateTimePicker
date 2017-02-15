@@ -28,35 +28,61 @@
 
     <com.wdullaer.materialdatetimepicker.AccessibleTextView
         android:id="@+id/date_picker_year"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_marginBottom="4dp"
-        android:gravity="center_vertical"
         android:includeFontPadding="false"
         android:textColor="@color/mdtp_date_picker_selector"
         android:textSize="@dimen/mdtp_datepicker_year_selection_text_size"
-        tools:text="2015" />
+        tools:text="2015"
+        android:gravity="center_vertical" />
 
-    <com.wdullaer.materialdatetimepicker.AccessibleLinearLayout
-        android:id="@+id/date_picker_month_and_day"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:clickable="true"
+    <LinearLayout
         android:orientation="horizontal"
-        android:textColor="@color/mdtp_date_picker_selector" >
-        <TextView
-            android:id="@+id/date_picker_day"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.wdullaer.materialdatetimepicker.AccessibleLinearLayout
+            android:id="@+id/date_picker_month_and_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:duplicateParentState="true"
-            android:gravity="left"
-            android:includeFontPadding="false"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:textColor="@color/mdtp_date_picker_selector" >
+            <TextView
+                android:id="@+id/date_picker_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:duplicateParentState="true"
+                android:gravity="left"
+                android:includeFontPadding="false"
+                android:textColor="@color/mdtp_date_picker_selector"
+                android:textSize="@dimen/mdtp_datepicker_selection_text_size"
+                tools:text="Fri, May 15"/>
+        </com.wdullaer.materialdatetimepicker.AccessibleLinearLayout>
+        <com.wdullaer.materialdatetimepicker.AccessibleLinearLayout
+            android:id="@+id/date_picker_time_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:orientation="horizontal"
             android:textColor="@color/mdtp_date_picker_selector"
-            android:textSize="@dimen/mdtp_datepicker_selection_text_size"
-            tools:text="Fri, May 15"/>
-    </com.wdullaer.materialdatetimepicker.AccessibleLinearLayout>
+            android:layout_marginLeft="16dp">
+            <TextView
+                android:id="@+id/date_picker_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:duplicateParentState="true"
+                android:gravity="left"
+                android:includeFontPadding="false"
+                android:textColor="@color/mdtp_date_picker_selector"
+                android:textSize="@dimen/mdtp_datepicker_selection_text_size"
+                tools:text="12:51"/>
+        </com.wdullaer.materialdatetimepicker.AccessibleLinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

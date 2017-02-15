@@ -26,13 +26,35 @@
     android:orientation="vertical">
 
     <com.wdullaer.materialdatetimepicker.AccessibleLinearLayout
+        android:id="@+id/date_picker_time_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:textColor="@color/mdtp_date_picker_selector">
+        <TextView
+            android:id="@+id/date_picker_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:duplicateParentState="true"
+            android:includeFontPadding="false"
+            android:textColor="@color/mdtp_date_picker_selector"
+            android:textSize="@dimen/mdtp_datepicker_selection_text_size"
+            tools:text="12:51"
+            android:gravity="center" />
+    </com.wdullaer.materialdatetimepicker.AccessibleLinearLayout>
+
+    <com.wdullaer.materialdatetimepicker.AccessibleLinearLayout
         android:id="@+id/date_picker_month_and_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:clickable="true"
         android:orientation="vertical"
-        android:textColor="@color/mdtp_date_picker_selector" >
+        android:textColor="@color/mdtp_date_picker_selector"
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/date_picker_month"
@@ -57,7 +79,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:textColor="@color/mdtp_date_picker_selector"
-            android:textSize="@dimen/mdtp_selected_date_day_size"
+            android:textSize="36sp"
             tools:text="15"/>
     </com.wdullaer.materialdatetimepicker.AccessibleLinearLayout>
 
@@ -70,6 +92,7 @@
         android:includeFontPadding="false"
         android:textColor="@color/mdtp_date_picker_selector"
         android:textSize="@dimen/mdtp_selected_date_year_size"
-        tools:text="2015" />
+        tools:text="2015"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>
