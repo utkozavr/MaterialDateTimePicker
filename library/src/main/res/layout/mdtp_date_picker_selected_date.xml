@@ -54,7 +54,7 @@
         android:clickable="true"
         android:orientation="vertical"
         android:textColor="@color/mdtp_date_picker_selector"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/date_picker_month"
@@ -93,6 +93,6 @@
         android:textColor="@color/mdtp_date_picker_selector"
         android:textSize="@dimen/mdtp_selected_date_year_size"
         tools:text="2015"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

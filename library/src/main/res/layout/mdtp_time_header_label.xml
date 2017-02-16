@@ -31,7 +31,8 @@
         android:layout_gravity="center"
         style="@style/mdtp_time_label_thin"
         android:textSize="@dimen/mdtp_year_label_text_size"
-        android:background="@color/mdtp_accent_color" />
+        android:background="@color/mdtp_accent_color"
+        android:paddingTop="2dp" />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:tools="http://schemas.android.com/tools"

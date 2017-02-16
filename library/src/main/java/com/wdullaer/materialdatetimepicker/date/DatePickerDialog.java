@@ -104,6 +104,7 @@ public class DatePickerDialog extends DialogFragment implements
     private static final String KEY_VERSION = "version";
     private static final String KEY_TIMEZONE = "timezone";
     private static final String KEY_TIME = "time";
+    private static final String KEY_TIME_COLOR = "time_color";
     private static final String KEY_IS_TIME_SET = "is_time_set";
 
 
@@ -158,6 +159,7 @@ public class DatePickerDialog extends DialogFragment implements
     private int mCancelResid = R.string.mdtp_cancel;
     private String mCancelString;
     private int mCancelColor = -1;
+    private int mTimeColor = -1;
     private Version mVersion;
     private TimeZone mTimezone;
 
@@ -289,6 +291,7 @@ public class DatePickerDialog extends DialogFragment implements
         outState.putSerializable(KEY_VERSION, mVersion);
         outState.putSerializable(KEY_TIMEZONE, mTimezone);
         outState.putString(KEY_TIME, mTime);
+        outState.putInt(KEY_TIME_COLOR, mTimeColor);
         outState.putBoolean(KEY_IS_TIME_SET, isTimeSet);
     }
 
@@ -326,6 +329,7 @@ public class DatePickerDialog extends DialogFragment implements
             mVersion = (Version) savedInstanceState.getSerializable(KEY_VERSION);
             mTimezone = (TimeZone) savedInstanceState.getSerializable(KEY_TIMEZONE);
             mTime = savedInstanceState.getString(KEY_TIME);
+            mTimeColor = savedInstanceState.getInt(KEY_TIME_COLOR);
             isTimeSet = savedInstanceState.getBoolean(KEY_IS_TIME_SET);
         }
 
@@ -336,6 +340,9 @@ public class DatePickerDialog extends DialogFragment implements
 
         mTimeViwe = (TextView) view.findViewById(R.id.date_picker_time);
         mTimeViwe.setOnClickListener(this);
+
+        if (mTimeColor != -1) mTimeViwe.setTextColor(mTimeColor);
+        else mTimeViwe.setTextColor(mAccentColor);
 
         mDatePickerHeaderView = (TextView) view.findViewById(R.id.date_picker_header);
         mMonthAndDayView = (LinearLayout) view.findViewById(R.id.date_picker_month_and_day);
@@ -677,6 +684,10 @@ public class DatePickerDialog extends DialogFragment implements
     @SuppressWarnings("unused")
     public void setCancelColor(@ColorInt int color) {
         mCancelColor = Color.argb(255, Color.red(color), Color.green(color), Color.blue(color));
+    }
+
+    public void setTimeColor(@ColorInt int color) {
+        mTimeColor = Color.argb(255, Color.red(color), Color.green(color), Color.blue(color));
     }
 
     /**

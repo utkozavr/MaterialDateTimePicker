@@ -95,6 +95,7 @@ public class TimePickerDialog extends DialogFragment implements
     private static final String KEY_VERSION = "version";
     private static final String KEY_DATE = "date";
     private static final String KEY_IS_DATE_SET = "is_date_set";
+    private static final String KEY_DATE_COLOR = "date_color";
 
     public static final int HOUR_INDEX = 0;
     public static final int MINUTE_INDEX = 1;
@@ -150,6 +151,7 @@ public class TimePickerDialog extends DialogFragment implements
     private String mCancelString;
     private int mCancelColor;
     private Version mVersion;
+    private int mDateColor = -1;
 
     // For hardware IME input.
     private char mPlaceholderText;
@@ -225,6 +227,7 @@ public class TimePickerDialog extends DialogFragment implements
         mOkColor = -1;
         mCancelResid = R.string.mdtp_cancel;
         mCancelColor = -1;
+        mDateColor = -1;
         mVersion = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? Version.VERSION_1 : Version.VERSION_2;
     }
 
@@ -533,6 +536,7 @@ public class TimePickerDialog extends DialogFragment implements
             mVersion = (Version) savedInstanceState.getSerializable(KEY_VERSION);
             mDate = savedInstanceState.getString(KEY_DATE);
             isDateSet = savedInstanceState.getBoolean(KEY_IS_DATE_SET);
+            mDateColor = savedInstanceState.getInt(KEY_DATE_COLOR);
 
         }
     }
@@ -864,6 +868,8 @@ public class TimePickerDialog extends DialogFragment implements
         }
 
         mDateViwe = (TextView) view.findViewById(R.id.time_picker_date);
+        if (mDateColor != -1) mDateViwe.setTextColor(mDateColor);
+        else mDateViwe.setTextColor(mSelectedColor);
         mDateViwe.setText(mDate);
         mDateViwe.setOnClickListener(new OnClickListener() {
             @Override
@@ -1009,6 +1015,7 @@ public class TimePickerDialog extends DialogFragment implements
             outState.putSerializable(KEY_VERSION, mVersion);
             outState.putString(KEY_DATE, mDate);
             outState.putBoolean(KEY_IS_DATE_SET, isDateSet);
+            outState.putInt(KEY_DATE_COLOR, mDateColor);
         }
     }
 
@@ -1893,5 +1900,9 @@ public class TimePickerDialog extends DialogFragment implements
         isDateSet = true;
         notifyOnDateListener();
         dismiss();
+    }
+
+    public void setDateColor(@ColorInt int color) {
+        mDateColor = Color.argb(255, Color.red(color), Color.green(color), Color.blue(color));
     }
 }

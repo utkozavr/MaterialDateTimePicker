@@ -14,6 +14,25 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License
   -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wdullaer.materialdatetimepicker.AccessibleTextView
+        android:id="@+id/time_picker_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="21 June 2017"
+        android:textColor="@color/mdtp_white"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        style="@style/mdtp_time_label_thin"
+        android:textSize="@dimen/mdtp_year_label_text_size"
+        android:background="@color/mdtp_accent_color"
+        android:paddingTop="16dp" />
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/time_display"
     android:layout_width="match_parent"
@@ -179,3 +198,4 @@
             android:importantForAccessibility="no" />
     </LinearLayout>
 </RelativeLayout>
+</LinearLayout>
